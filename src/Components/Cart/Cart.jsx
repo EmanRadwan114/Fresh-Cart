@@ -27,7 +27,6 @@ export default function Cart() {
     if (data?.status === "success") {
       setCartDetails(data);
       toast.success("product is removed successfully");
-      console.log(cartDetails);
     } else {
       toast.error("error in deleting the product, try again");
     }

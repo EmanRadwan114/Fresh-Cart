@@ -9,8 +9,12 @@ import { wishlistContext } from "../../Context/WishlistContext";
 
 export default function FeaturedProducts() {
   let { addProductToCart } = useContext(CartContext);
-  const { addProductToWishlist, wishlistItem, deleteWishlistItem } =
-    useContext(wishlistContext);
+  const {
+    addProductToWishlist,
+    wishlistItem,
+    deleteWishlistItem,
+    getLoggedUserWishlist,
+  } = useContext(wishlistContext);
 
   async function addToWishlist(id) {
     let response = await addProductToWishlist(id);
@@ -50,6 +54,10 @@ export default function FeaturedProducts() {
     queryKey: ["/products", page],
     queryFn: () => getProducts(page),
     keepPreviousData: true,
+  });
+
+  useEffect(() => {
+    getLoggedUserWishlist();
   });
 
   return (

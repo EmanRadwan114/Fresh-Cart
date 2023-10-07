@@ -53,7 +53,7 @@ let routers = createBrowserRouter([
         path: "login",
         element: (
           <PreventLogin>
-            <Login />{" "}
+            <Login />
           </PreventLogin>
         ),
       },
@@ -206,16 +206,16 @@ let routers = createBrowserRouter([
 
 function App() {
   return (
-    <CartContextProvider>
-      <OrdersContextProvider>
-        <WishlistContextProvider>
-          <TokenContextProvider>
+    <TokenContextProvider>
+      <CartContextProvider>
+        <OrdersContextProvider>
+          <WishlistContextProvider>
             <RouterProvider router={routers} />
-          </TokenContextProvider>
-        </WishlistContextProvider>
-      </OrdersContextProvider>
-      <Toaster></Toaster>
-    </CartContextProvider>
+          </WishlistContextProvider>
+        </OrdersContextProvider>
+        <Toaster></Toaster>
+      </CartContextProvider>
+    </TokenContextProvider>
   );
 }
 

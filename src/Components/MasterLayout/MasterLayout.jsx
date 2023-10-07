@@ -8,8 +8,11 @@ import { Offline } from "react-detect-offline";
 export default function MasterLayout() {
   const { setToken } = useContext(TokenContext);
 
-  useEffect((e) => {
-    if (localStorage.getItem("token") !== null) {
+  useEffect(() => {
+    if (
+      localStorage.getItem("token") !== null ||
+      localStorage.getItem("token") !== "null"
+    ) {
       setToken(localStorage.getItem("token"));
     }
 

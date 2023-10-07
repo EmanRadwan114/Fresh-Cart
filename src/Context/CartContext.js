@@ -1,11 +1,8 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
 export const CartContext = createContext();
-const headers = {
-  token: localStorage.getItem("token"),
-};
 
 export default function CartContextProvider(props) {
   let [cartCount, setCartCount] = useState(0);
@@ -19,7 +16,7 @@ export default function CartContextProvider(props) {
           productId: id,
         },
         {
-          headers,
+          headers: { token: localStorage.getItem("token") },
         }
       )
       .then((response) => {
@@ -41,7 +38,7 @@ export default function CartContextProvider(props) {
   function getLoggedUserCart() {
     return axios
       .get(`https://ecommerce.routemisr.com/api/v1/cart`, {
-        headers,
+        headers: { token: localStorage.getItem("token") },
       })
       .then((response) => {
         setCartCount(response?.data.numOfCartItems);
@@ -54,7 +51,7 @@ export default function CartContextProvider(props) {
   function deleteCartItem(id) {
     return axios
       .delete(`https://ecommerce.routemisr.com/api/v1/cart/${id}`, {
-        headers,
+        headers: { token: localStorage.getItem("token") },
       })
       .then((response) => {
         setCartCount(response.data.numOfCartItems);
@@ -68,7 +65,7 @@ export default function CartContextProvider(props) {
       .put(
         `https://ecommerce.routemisr.com/api/v1/cart/${id}`,
         { count },
-        { headers }
+        { headers: { token: localStorage.getItem("token") } }
       )
       .then((response) => {
         return response;
@@ -79,7 +76,7 @@ export default function CartContextProvider(props) {
   function clearCart() {
     return axios
       .delete(`https://ecommerce.routemisr.com/api/v1/cart`, {
-        headers,
+        headers: { token: localStorage.getItem("token") },
       })
       .then((response) => {
         setCartCount(0);
@@ -93,7 +90,7 @@ export default function CartContextProvider(props) {
       .post(
         `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=${host}`,
         { shippingAddress: values },
-        { headers }
+        { headers: { token: localStorage.getItem("token") } }
       )
       .then((response) => {
         return response;
@@ -106,7 +103,7 @@ export default function CartContextProvider(props) {
       .post(
         `https://ecommerce.routemisr.com/api/v1/orders/${id}`,
         { shippingAddress: values },
-        { headers }
+        { headers: { token: localStorage.getItem("token") } }
       )
       .then((response) => {
         return response;
@@ -116,7 +113,7 @@ export default function CartContextProvider(props) {
 
   useEffect(() => {
     getLoggedUserCart();
-  }, []);
+  }, [cartId]);
 
   return (
     <CartContext.Provider

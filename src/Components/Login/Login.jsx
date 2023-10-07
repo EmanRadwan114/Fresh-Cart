@@ -5,12 +5,14 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { TokenContext } from "./../../Context/TokenContext";
 import { Helmet } from "react-helmet";
+import { CartContext } from "../../Context/CartContext";
 
 export default function Login() {
   let navigate = useNavigate();
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(false);
-  const { token, setToken } = useContext(TokenContext);
+  let { setToken } = useContext(TokenContext);
+  const { getLoggedUserCart } = useContext(CartContext);
 
   async function userLogin(values) {
     setLoading(true);
@@ -21,11 +23,11 @@ export default function Login() {
         setError(err.response.data.message);
       });
 
-    if (data.message === "success") {
-      setLoading(false);
+    if (data?.message === "success") {
       localStorage.setItem("token", data.token);
-      setToken(data.token);
+      await setToken(data.token);
       navigate("/");
+      await getLoggedUserCart();
     }
   }
 

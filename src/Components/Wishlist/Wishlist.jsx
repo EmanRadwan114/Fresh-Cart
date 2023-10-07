@@ -15,7 +15,7 @@ export default function Wishlist() {
     const response = await getLoggedUserWishlist();
     setLoading(false);
     if (response?.data.status === "success") {
-      setWishlistDetails(response.data);
+      setWishlistDetails(response?.data);
     }
     return wishlistDetails;
   }
@@ -108,8 +108,9 @@ export default function Wishlist() {
                             {" "}
                             <button
                               className="btn border-main countBtn d-block w-100 h-100"
-                              onClick={() => {
-                                addProductToCart(product._id);
+                              onClick={async () => {
+                                await addProductToCart(product._id);
+                                removewishlistItem(product._id);
                               }}
                             >
                               {" "}
