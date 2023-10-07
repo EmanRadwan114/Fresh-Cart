@@ -1,4 +1,4 @@
-import { RouterProvider, createHashRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 import MasterLayout from "./Components/MasterLayout/MasterLayout";
 import Home from "./Components/Home/Home";
@@ -28,7 +28,7 @@ import UserInfo from "./Components/UserInfo/UserInfo";
 import CashAddressForm from "./Components/CashAddressForm/CashAddressForm";
 import OnlineAddressForm from "./Components/OnlineAddressForm/OnlineAddressForm";
 
-let routers = createHashRouter([
+let routers = createBrowserRouter([
   {
     path: "",
     element: <MasterLayout />,
