@@ -9,7 +9,7 @@ export default function OnlineAddressForm() {
   async function onlinePayment(id, value) {
     const { data } = await payOnline(
       id,
-      "https://emanradwan114.github.io/FreshCart",
+      "https://fresh-cart-ecommerce.vercel.app",
       value
     );
 
